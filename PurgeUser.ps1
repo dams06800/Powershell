@@ -226,7 +226,7 @@ Param(
 	$FinalCollection  | sort-object -property NTUSERLastWriteTime | FT
 	#delete
 	#collection triée par date DESC (Delete du + ancien au + recent) 
-	$CountUserLeft = -1;
+	$CountUserLeft = 0;
 	$FinalCollection  | sort-object -property NTUSERLastWriteTime  | % {
 
 	$CountUserLeft++
