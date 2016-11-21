@@ -18,7 +18,7 @@ Script de nettoyage profils utilisateurs.
 		[boolean]$debugMode
 
 .EXAMPLE
-		./PurgeUser.ps1 -ToggleFolderCount 40 -Threshold 200 -MaxFolderLeft 40 -debugMode $true
+./PurgeUser.ps1 -ToggleFolderCount 40 -Threshold 200 -MaxFolderLeft 40 -debugMode $true
 
 .NOTES
 		nbr de dossiers dans /users pour activer le déclenchement
@@ -226,7 +226,7 @@ Param(
 	$FinalCollection  | sort-object -property NTUSERLastWriteTime | FT
 	#delete
 	#collection triée par date DESC (Delete du + ancien au + recent) 
-	$CountUserLeft = 0;
+	$CountUserLeft = -1;
 	$FinalCollection  | sort-object -property NTUSERLastWriteTime  | % {
 
 	$CountUserLeft++
