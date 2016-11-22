@@ -1,0 +1,119 @@
+#############################################################################
+mardi 22 novembre 2016 10:31:34 : début nettoyage profils utilisateurs. PC :  M51030 ,executé par : PB19150
+--------------------- PARAMETRES -----------------------------------
+
+-ToggleFolderCount = 40 
+-Treshold = 100 
+-MaxFolderLeft = 10
+-debug = True
+
+---------------------NETTOYAGE INCOHERENCE CLES / DOSSIER -----------
+Nombre de dossiers utilisateurs initial : 44
+
+
+suppression des dossiers sans clés : 0
+
+suppression des clés sans dossier : 0
+
+---------------------LISTE DES USERS SANS LA WHITELIST ---------------
+PB00056 NTUSER.DAT : LastWriteTime 11/21/2016 16:36:29 suppression refusée par le parametre treshold
+PB00375 NTUSER.DAT : LastWriteTime 11/21/2016 17:20:09 suppression refusée par le parametre treshold
+PB10015 NTUSER.DAT : LastWriteTime 11/14/2016 10:05:02 suppression refusée par le parametre treshold
+PB10059 NTUSER.DAT : LastWriteTime 11/03/2016 16:32:17 suppression refusée par le parametre treshold
+PB10061 NTUSER.DAT : LastWriteTime 11/14/2016 17:03:20 suppression refusée par le parametre treshold
+PB10070 NTUSER.DAT : LastWriteTime 09/05/2016 14:38:55 suppression refusée par le parametre treshold
+PB10147 NTUSER.DAT : LastWriteTime 11/17/2016 12:31:11 suppression refusée par le parametre treshold
+PB10153 NTUSER.DAT : LastWriteTime 05/09/2016 17:00:32 suppression autorisée par le parametre treshold
+PB10165 NTUSER.DAT : LastWriteTime 05/20/2016 14:17:21 suppression autorisée par le parametre treshold
+PB10255 NTUSER.DAT : LastWriteTime 06/07/2016 16:36:34 suppression autorisée par le parametre treshold
+PB10267 NTUSER.DAT : LastWriteTime 06/27/2016 10:02:07 suppression autorisée par le parametre treshold
+PB10363 NTUSER.DAT : LastWriteTime 07/19/2016 16:06:17 suppression autorisée par le parametre treshold
+PB10370 NTUSER.DAT : LastWriteTime 11/16/2016 12:00:45 suppression refusée par le parametre treshold
+PB10426 NTUSER.DAT : LastWriteTime 11/02/2016 11:01:06 suppression refusée par le parametre treshold
+PB10453 NTUSER.DAT : LastWriteTime 11/14/2016 12:02:36 suppression refusée par le parametre treshold
+PB10454 NTUSER.DAT : LastWriteTime 05/09/2016 12:02:07 suppression autorisée par le parametre treshold
+PB10456 NTUSER.DAT : LastWriteTime 07/19/2016 10:31:25 suppression autorisée par le parametre treshold
+PB10457 NTUSER.DAT : LastWriteTime 09/07/2016 10:30:30 suppression refusée par le parametre treshold
+PB10459 NTUSER.DAT : LastWriteTime 04/14/2016 16:30:56 suppression autorisée par le parametre treshold
+PB10464 NTUSER.DAT : LastWriteTime 06/23/2016 11:59:43 suppression autorisée par le parametre treshold
+PB10465 NTUSER.DAT : LastWriteTime 11/07/2016 11:33:35 suppression refusée par le parametre treshold
+PB10530 NTUSER.DAT : LastWriteTime 07/19/2016 10:31:30 suppression autorisée par le parametre treshold
+PB10564 NTUSER.DAT : LastWriteTime 04/15/2016 12:06:22 suppression autorisée par le parametre treshold
+PB10584 NTUSER.DAT : LastWriteTime 05/30/2016 17:32:07 suppression autorisée par le parametre treshold
+PB10598 NTUSER.DAT : LastWriteTime 11/15/2016 10:33:08 suppression refusée par le parametre treshold
+PB10605 NTUSER.DAT : LastWriteTime 05/09/2016 14:00:59 suppression autorisée par le parametre treshold
+PB10630 NTUSER.DAT : LastWriteTime 11/08/2016 12:01:10 suppression refusée par le parametre treshold
+PB10652 NTUSER.DAT : LastWriteTime 05/24/2016 12:31:09 suppression autorisée par le parametre treshold
+PB10654 NTUSER.DAT : LastWriteTime 06/30/2016 10:35:37 suppression autorisée par le parametre treshold
+PB10756 NTUSER.DAT : LastWriteTime 07/05/2016 11:35:07 suppression autorisée par le parametre treshold
+PB10768 NTUSER.DAT : LastWriteTime 06/03/2016 12:31:27 suppression autorisée par le parametre treshold
+PB10827 NTUSER.DAT : LastWriteTime 11/08/2016 17:30:55 suppression refusée par le parametre treshold
+PB10850 NTUSER.DAT : LastWriteTime 05/23/2016 11:07:19 suppression autorisée par le parametre treshold
+PB10857 NTUSER.DAT : LastWriteTime 09/12/2016 12:00:36 suppression refusée par le parametre treshold
+PB10907 NTUSER.DAT : LastWriteTime 07/11/2016 12:02:58 suppression autorisée par le parametre treshold
+PB10910 NTUSER.DAT : LastWriteTime 04/18/2016 12:03:24 suppression autorisée par le parametre treshold
+PB10914 NTUSER.DAT : LastWriteTime 05/09/2016 10:33:33 suppression autorisée par le parametre treshold
+PB10976 NTUSER.DAT : LastWriteTime 10/31/2016 12:35:26 suppression refusée par le parametre treshold
+PB10998 NTUSER.DAT : LastWriteTime 09/13/2016 11:32:34 suppression refusée par le parametre treshold
+PB19160 NTUSER.DAT : LastWriteTime 10/26/2016 15:41:54 suppression refusée par le parametre treshold
+ 
+---------------------SUPPRESSION DES PROFILS VALIDES-----------------------------------
+nb de users elligibles par -Threshold : 21
+nbr de users elligibles au final (-MaxFolderLeft): 11
+
+ début suppression PB10459 
+DEBUG DOSSIER -> User: PB10459 - Suppression du dossier user C:\Users\PB10459 réussie
+DEBUG REGISTRE -> User: PB10459 - Suppression clé de registre  réussie
+fin de suppression PB10459
+
+ début suppression PB10564 
+DEBUG DOSSIER -> User: PB10564 - Suppression du dossier user C:\Users\PB10564 réussie
+DEBUG REGISTRE -> User: PB10564 - Suppression clé de registre  réussie
+fin de suppression PB10564
+
+ début suppression PB10910 
+DEBUG DOSSIER -> User: PB10910 - Suppression du dossier user C:\Users\PB10910 réussie
+DEBUG REGISTRE -> User: PB10910 - Suppression clé de registre  réussie
+fin de suppression PB10910
+
+ début suppression PB10914 
+DEBUG DOSSIER -> User: PB10914 - Suppression du dossier user C:\Users\PB10914 réussie
+DEBUG REGISTRE -> User: PB10914 - Suppression clé de registre  réussie
+fin de suppression PB10914
+
+ début suppression PB10454 
+DEBUG DOSSIER -> User: PB10454 - Suppression du dossier user C:\Users\PB10454 réussie
+DEBUG REGISTRE -> User: PB10454 - Suppression clé de registre  réussie
+fin de suppression PB10454
+
+ début suppression PB10605 
+DEBUG DOSSIER -> User: PB10605 - Suppression du dossier user C:\Users\PB10605 réussie
+DEBUG REGISTRE -> User: PB10605 - Suppression clé de registre  réussie
+fin de suppression PB10605
+
+ début suppression PB10153 
+DEBUG DOSSIER -> User: PB10153 - Suppression du dossier user C:\Users\PB10153 réussie
+DEBUG REGISTRE -> User: PB10153 - Suppression clé de registre  réussie
+fin de suppression PB10153
+
+ début suppression PB10165 
+DEBUG DOSSIER -> User: PB10165 - Suppression du dossier user C:\Users\PB10165 réussie
+DEBUG REGISTRE -> User: PB10165 - Suppression clé de registre  réussie
+fin de suppression PB10165
+
+ début suppression PB10850 
+DEBUG DOSSIER -> User: PB10850 - Suppression du dossier user C:\Users\PB10850 réussie
+DEBUG REGISTRE -> User: PB10850 - Suppression clé de registre  réussie
+fin de suppression PB10850
+
+ début suppression PB10652 
+DEBUG DOSSIER -> User: PB10652 - Suppression du dossier user C:\Users\PB10652 réussie
+DEBUG REGISTRE -> User: PB10652 - Suppression clé de registre  réussie
+fin de suppression PB10652
+
+ début suppression PB10584 
+DEBUG DOSSIER -> User: PB10584 - Suppression du dossier user C:\Users\PB10584 réussie
+DEBUG REGISTRE -> User: PB10584 - Suppression clé de registre  réussie
+fin de suppression PB10584
+
+mardi 22 novembre 2016 10:31:34 : Fin : Fin purgeuser.ps1

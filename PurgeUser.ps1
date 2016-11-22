@@ -1,5 +1,4 @@
 <#
-
 .SYNOPSIS
 Script de nettoyage profils utilisateurs.
 
@@ -73,15 +72,16 @@ Param(
 			$smtp = New-Object Net.Mail.SmtpClient($smtpServer)
 			$smtp.Send($message)
 		}
-	}	
+	}
 	
+	$poste = $env:computername
+	$User= $env:username
+	#Sécurité variable d'environement	
 	
-	#Sécurité variable d'environement
 	if(!(Test-Path Env:\_PC_FONCTION_ACCUEIL_TEL))
 	{
 		 write-warning "Alerte : type de poste invalide" 
 		 add-content $LogFile -value "Alerte : type de poste invalide"
-		 $poste = $env:computername
 		 $subject = "PurgeUser.ps1 Alerte :  $poste type de poste invalide"
 		 $body = "type de poste invalide"
 		 $email =@($subject,$body)
@@ -91,33 +91,31 @@ Param(
 	
 	#init
 	if(-not($Threshold)){$Threshold = 0 ; write-warning "-Threshold 0 par default" }
-	$User= $env:username
 	$LogFile = "c:\temp\_logs\PurgeUser.log"
 	$date = get-date -format F
 	$WhiteUsersList = @("Administrateur","netshield","service_bmc_fpac","pb11997",$User,"Public")
 
-	add-content $LogFile -value "#################################################"
-	add-content $LogFile -value "$date : début nettoyage profils utilisateurs"
-	add-content $LogFile -value "`r`n"
-	add-content $LogFile -value "Param ToggleFolderCount = $ToggleFolderCount "
-	add-content $LogFile -value "Param Treshold = $Threshold "
-	add-content $LogFile -value "Param MaxFolderLeft = $MaxFolderLeft"
-	add-content $LogFile -value "Param debug = $debugMode"
-	
-	#step ignore script $ToggleFolderCount
-	$InitialProfileFolders = Get-ChildItem "$($env:SystemDrive)\Users"
-	if($InitialProfileFolders.Count -lt $ToggleFolderCount)
-	{
-	add-content $LogFile -value "Nombre de dossiers inferieur à la valeur ToggleFolderCount exit "	
-	exit 0
-	}
-	
-	
-	
+	add-content $LogFile -value "#############################################################################"
+	add-content $LogFile -value "$date : début nettoyage profils utilisateurs. PC :  $poste ,executé par : $User"
+	add-content $LogFile -value "--------------------- PARAMETRES -----------------------------------"
+	add-content $LogFile -value ""
+	add-content $LogFile -value "-ToggleFolderCount = $ToggleFolderCount "
+	add-content $LogFile -value "-Treshold = $Threshold "
+	add-content $LogFile -value "-MaxFolderLeft = $MaxFolderLeft"
+	add-content $LogFile -value "-debug = $debugMode"
+	add-content $LogFile -value ""
+	add-content $LogFile -value "---------------------NETTOYAGE INCOHERENCE CLES / DOSSIER -----------"
 	$CountUserProfileFolders = (Get-ChildItem "$($env:SystemDrive)\Users").Count 
 	add-content $LogFile -value "Nombre de dossiers utilisateurs initial : $CountUserProfileFolders"
 	add-content $LogFile -value "`r`n"
 	
+	#step ignore script $ToggleFolderCount
+	if($CountUserProfileFolders -lt $ToggleFolderCount)
+	{
+	add-content $LogFile -value "Nombre de dossiers inferieur à la valeur ToggleFolderCount exit "	
+	exit 0
+	}
+		
 	#clean folder without key	
 	$countTrashFolder =0;
 	$TrashFolderLog = "";
@@ -168,18 +166,19 @@ Param(
 	{ 					
 		write-host "folder not found $currentPath"
 		$countTrashKey++
-		$TrashKeyLog += "REGISTRE TRASH KEY -> Suppression de la clés utilisateur where ProfileImagePath = $currentPath `r`n"
+		$TrashKeyLog += "REGISTRE TRASH KEY -> Suppression de la clés utilisateur  $currentPath `r`n"
 		if($debugMode -eq $false)
 		{			
 		$_ | Remove-Item	
-		
 		
 		}
 	}
 
 	}
-		add-content $LogFile -value "suppression des clés sans dossier : $countTrashKey"
-		add-content $LogFile -value $TrashKeyLog
+	
+	add-content $LogFile -value "suppression des clés sans dossier : $countTrashKey"
+	add-content $LogFile -value $TrashKeyLog
+	add-content $LogFile -value "---------------------LISTE DES USERS SANS LA WHITELIST ---------------"
 	
 	# sélection des dossiers hors whiteList
 	$UserProfileFolders = Get-ChildItem "$($env:SystemDrive)\Users" | ? {$WhiteUsersList -notcontains $_.Name} | Select Name,FullName,LastAccessTime
@@ -221,8 +220,11 @@ Param(
 	
 	add-content $LogFile -value  " "
 	add-content $LogFile -value  "---------------------SUPPRESSION DES PROFILS VALIDES-----------------------------------"
-	$cf = $FinalCollection.Count
-	add-content $LogFile -value  "Collection finale count: $cf"
+	[int]$cf = $FinalCollection.Count
+	[int]$finalCount = $cf - $maxfolderleft;
+	if([int]$finalCount -lt 0){$finalCount = 0;write-host "negative"}
+	add-content $LogFile -value  "nb de users elligibles par -Threshold : $cf"
+	add-content $LogFile -value  "nbr de users elligibles au final (-MaxFolderLeft): $finalCount"
 	$FinalCollection  | sort-object -property NTUSERLastWriteTime | FT
 	#delete
 	#collection triée par date DESC (Delete du + ancien au + recent) 
@@ -238,34 +240,14 @@ Param(
 	
 		
 		if($index -le $MaxFolderLeft){
-		write-host "nombre de dossiers inferieur au MaxLeftFolder exit" ;
 		$regCount = (Get-ChildItem "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ProfileList").Count
-		add-content $LogFile -value "Nombre de clé de registre user : $regCount clé" ; 
-		
-		add-content $LogFile -value "Nombre de dossiers users inferieur à la valeur definie $MaxFolderLeft exit!" ; 
+		add-content $LogFile -value ""
+		add-content $LogFile -value "$date : Fin : Fin purgeuser.ps1"
 		exit 0
 		}
 		add-content $LogFile -value  "`r`n début suppression $PB "
-		add-content $LogFile -value "Index de suppression dans la collection : $index dossiers" ; 
-		 <#		if($debugMode -eq $false)
-			{
-				Try
-				{
-						#function wmi test
-						$curentUser = Get-WmiObject win32_userprofile| Where-Object {$_.LocalPath -eq $path} | Select-Object -first 1 
-						$curentUser.delete()
-						add-content $LogFile -value "PROFIL -> User: $PB - Suppression du PROFIL user $path réussie"
-						write-host "PROFIL -> User: $PB - Suppression du PROFIL user $path réussie"
-			
-				}
-				Catch
-				{
-					add-content $LogFile -value "PROFIL -> User: $PB - Suppression du PROFIL user $path échoué "
-					write-host "PROFIL -> User: $PB - Suppression du PROFIL user $path échoué"
-			
-				}
-			}
-			#>
+		#add-content $LogFile -value "Index de suppression dans la collection : $index dossiers" ; 
+	
 			if($debugMode -eq $false)
 				{
 				##action de delete general
@@ -329,6 +311,6 @@ Param(
 					add-content $LogFile -value "DEBUG REGISTRE -> User: $PB - Suppression clé de registre $UserKey réussie"
 				}
 				
-			
+			add-content $LogFile -value "fin de suppression $PB"
 				
 	}	
